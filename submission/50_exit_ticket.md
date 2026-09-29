@@ -1,0 +1,13 @@
+# Exit ticket
+
+Đọc `docs/10-svm360-reading-vi.md` trước khi trả lời câu 1–2. Các câu về zone, `why`, rework, parking và sampling
+đã nằm trong file tương ứng nên không hỏi lại ở đây.
+
+1. Một vật ở vùng seam giữa hai camera thật xuất hiện với hai box khác nhau: đó là lỗi `DUPLICATE` hay cần một quy
+   tắc riêng? Vì sao? Đây **không phải** lỗi `DUPLICATE` mà cần một quy tắc seam riêng. `DUPLICATE` xảy ra khi cùng một vật bị vẽ hai box trên **cùng một camera** trong cùng frame. Khi vật xuất hiện trên hai camera khác nhau, đó là hệ quả tất yếu của FOV overlap — camera front và camera left đều "nhìn thấy" vật ở góc chung. Không thể gọi là DUPLICATE vì không có redundancy trong annotation của một camera đơn. Cần policy seam rõ ràng: (1) định nghĩa vùng overlap dựa trên extrinsic calibration; (2) quy định camera nào là "chủ" cho vật ở vùng đó; (3) camera còn lại không vẽ box hoặc đánh dấu là cross-camera reference — tránh double-count trong metrics.
+
+2. Một vật đi qua nhiều frame trên cùng camera: khi nào giữ cùng track ID, khi nào thêm keyframe hoặc trạng thái
+   Outside? Nêu bằng chứng sẽ cần trước khi nối track qua hai camera. Giữ cùng track ID khi vật liên tục hiển thị trên camera với IoU frame-to-frame ≥ 0.30 và không có khoảng trống >N frame (N tùy guideline, thường 3–5). Thêm **keyframe** khi vật thay đổi đáng kể về vị trí, kích thước hoặc orientation giữa hai frame liên tiếp. Chuyển sang trạng thái **Outside** khi vật thoát khỏi FOV camera hoàn toàn — không còn pixel nào trong frame. Để nối track qua hai camera, cần: (1) timestamp đồng bộ giữa hai camera; (2) projection của bounding box từ camera A sang hệ tọa độ camera B bằng extrinsic matrix; (3) IoU giữa projected box và box trên camera B ≥ 0.30; (4) reviewer xác nhận đây là cùng vật bằng visual inspection ±2 frame; thiếu bất kỳ bằng chứng nào thì không nối.
+
+3. Nhìn lại cả buổi: một chỗ bạn tin nhãn mình đúng nhưng reference hoặc người soát nghĩ khác (dẫn frame/`object_ref`),
+   bạn đã xử lý thế nào, và nếu làm lại slice này bạn sẽ đổi gì trong cách làm? Frame `adasind_258420.jpg`, object_ref L1 — tôi ban đầu tin rằng việc tách `Pedestrian` (L1) và `Bike` (L3) riêng là đúng vì nhìn ảnh thấy người và xe đứng cạnh nhau. Tuy nhiên QA reviewer Tuan Khoi chỉ ra theo R03 đây là ca rider đang lái và phải gộp thành một box `Bike`. Sau khi đối chiếu với reference (R1 — một box Bike duy nhất) và đọc lại R03, tôi đồng ý và rework: xóa L1+L3, vẽ lại một box `Bike` bao cả người và xe. Nếu làm lại slice này, tôi sẽ: (1) đọc R03 kỹ hơn trước khi gán nhãn — đặc biệt ba trạng thái rider/dắt xe/đứng cạnh xe; (2) tính r/R cho mỗi box ngay lúc vẽ để điền attribute edge_zone đúng ngay thay vì để sót; (3) review frame `adasind_258420.jpg` cuối cùng vì frame đông đúc dễ bỏ sót.

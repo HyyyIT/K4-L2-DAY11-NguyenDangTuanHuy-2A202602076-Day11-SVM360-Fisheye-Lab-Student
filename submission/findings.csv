@@ -1,1 +1,34 @@
 round,slice,frame,object_ref,cell,what,why,severity,owner,rule_id,evidence,action,rules_version,note
+calib,C0,adasind_019560.jpg,L1,L_only,SPURIOUS,E1_annotator_error,P1,annotator,R02,submission/p1_calib/compare.html,rework,1.0.0,Box Pedestrian vẽ vào vùng ignore hoặc vật không đủ H>=40px; reference không ghép được
+calib,C0,adasind_019560.jpg,L2,L_only,SPURIOUS,E1_annotator_error,P1,annotator,R03,submission/p1_calib/compare.html,rework,1.0.0,Có thể nhầm rider thành Pedestrian độc lập; cần gộp thành một box Bike theo R03
+calib,C0,adasind_019560.jpg,R1,R_only,MISSING,E5_unresolved,P2,annotator,R01,submission/p1_calib/compare.html,escalate,1.0.0,Vật reference không rõ class và kích thước; cần soát ảnh gốc trước khi quyết định
+r1_craft,B4-edge,adasind_236370.jpg,L1,na,SPURIOUS,,,,,,,,
+r1_craft,B4-edge,adasind_236370.jpg,R4,na,MISSING,,,,,,,,
+r1_craft,B4-edge,adasind_258420.jpg,L1,na,SPURIOUS,,,,,,,,
+r1_craft,B4-edge,adasind_258420.jpg,R1,na,MISSING,,,,,,,,
+r1_craft,B4-edge,adasind_258420.jpg,R3,na,MISSING,,,,,,,,
+r1_craft,B4-edge,adasind_258420.jpg,R5,na,MISSING,,,,,,,,
+r1_craft,B4-edge,adasind_258420.jpg,R7,na,MISSING,,,,,,,,
+r3_diag,B4-edge,adasind_236370.jpg,L1,L_only,SPURIOUS,E1_annotator_error,P1,annotator,R03,submission/r1_craft/compare.html,rework,1.0.0,Box Pedestrian không có box Bike đi kèm; theo R03 ca rider cần một box Bike bao cả người và xe
+r3_diag,B4-edge,adasind_236370.jpg,R4+M1,RM_noL,MISSING,E1_annotator_error,P1,annotator,R01,submission/r3_diag/model_compare.html,rework,1.0.0,Box Bike bị bỏ sót; reference và model đều phát hiện nhưng annotator bỏ qua
+r3_diag,B4-edge,adasind_236370.jpg,M2,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm một box không có trong reference và L; nghi nhầm do nhiễu fisheye vùng edge
+r3_diag,B4-edge,adasind_258420.jpg,L4+R4,LR_noM,MISSING,E1_annotator_error,P2,annotator,R01,submission/r3_diag/model_compare.html,rework,1.0.0,Box có trong L và R nhưng model không phát hiện; vật nằm sát ranh vùng fisheye
+r3_diag,B4-edge,adasind_258420.jpg,L5+R8,LR_noM,MISSING,E2_guideline_gap,P2,guideline,R10,submission/r3_diag/model_compare.html,escalate,1.0.0,Box thuộc vùng edge nhưng attribute edge_zone chưa rõ; model bỏ qua do góc méo fisheye
+r3_diag,B4-edge,adasind_258420.jpg,L1+M10,LM_noR,SPURIOUS,E1_annotator_error,P1,annotator,R03,submission/r3_diag/model_compare.html,rework,1.0.0,Box L1 và M10 cùng vùng nhưng reference không có; theo R03 ca rider bị tách sai thành Pedestrian+Bike riêng
+r3_diag,B4-edge,adasind_258420.jpg,R1,R_only,MISSING,E1_annotator_error,P1,annotator,R01,submission/r1_craft/compare.html,rework,1.0.0,Box reference ở vùng edge bị bỏ sót; cần kiểm tra attribute edge_zone và tọa độ r/R
+r3_diag,B4-edge,adasind_258420.jpg,R3,R_only,MISSING,E1_annotator_error,P1,annotator,R01,submission/r1_craft/compare.html,rework,1.0.0,Reference có box mid nhưng annotator bỏ sót; nhiều vật khuất nhau trong frame này
+r3_diag,B4-edge,adasind_258420.jpg,R5,R_only,MISSING,E1_annotator_error,P2,annotator,R01,submission/r1_craft/compare.html,rework,1.0.0,Box reference bị bỏ sót; vật nhỏ hoặc bị che khuất bởi vật khác trong vùng mid
+r3_diag,B4-edge,adasind_258420.jpg,R7+M12,RM_noL,MISSING,E1_annotator_error,P1,annotator,R01,submission/r3_diag/model_compare.html,rework,1.0.0,Reference và model đều có box nhưng annotator bỏ sót; dấu hiệu bỏ sót có hệ thống ở frame 258420
+r3_diag,B4-edge,adasind_258420.jpg,M3,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; không có trong L hay R; nghi nhầm do biến dạng quang học fisheye vùng mid
+r3_diag,B4-edge,adasind_258420.jpg,M4,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; không có trong L hay R; vùng mid nhiều noise do fisheye
+r3_diag,B4-edge,adasind_258420.jpg,M5,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; không có trong L hay R; có thể phần thân xe bị nhầm thành vật riêng
+r3_diag,B4-edge,adasind_258420.jpg,M6,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm không có trong reference và L; nghi nhầm bóng hoặc phản chiếu
+r3_diag,B4-edge,adasind_258420.jpg,M7,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; nghi bị ảnh hưởng bởi méo hình ở phần rìa ảnh fisheye
+r3_diag,B4-edge,adasind_258420.jpg,M8,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; reference không có; không đủ bằng chứng để gán annotator error
+r3_diag,B4-edge,adasind_258420.jpg,M11,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; nghi vùng mờ/méo fisheye gây nhiễu cho model
+r3_diag,B4-edge,adasind_310008.jpg,L3+R1,LR_noM,MISSING,E1_annotator_error,P2,annotator,R01,submission/r3_diag/model_compare.html,rework,1.0.0,Box có trong L và R nhưng model bỏ qua; vật ở vùng edge có r/R > 0.6 dễ bị model bỏ sót
+r3_diag,B4-edge,adasind_310008.jpg,M6,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; không có trong L hay R; vùng edge méo mạnh
+r3_diag,B4-edge,adasind_310008.jpg,M7,M_only,SPURIOUS,E4_model_domain,P3,ai_team,R01,submission/r3_diag/model_compare.html,keep_with_reason,1.0.0,Model phát hiện thêm; nghi nhiễu quang học vùng rìa fisheye gây false positive
+r2_qa,B3-center,adasind_167700.jpg,L5,L_only,BOX_GEOMETRY,,,,R02,submission/r2_qa/qa_overlay.html,keep_with_reason,1.0.0,Box Bike 322x713px nghi vẽ rộng hơn vật thật; sau đối chiếu ảnh gốc box ôm được toàn bộ xe
+r2_qa,B4-edge,adasind_258420.jpg,L1,L_only,STRUCTURE,,,,R03,submission/r2_qa/qa_overlay.html,keep_with_reason,1.0.0,Tách Pedestrian và Bike riêng trong khi QA thấy đây là ca rider; sau P4 xác nhận cần gộp thành một box Bike
+r2_qa,B4-edge,adasind_310008.jpg,L2,L_only,ATTRIBUTE,,,,R10,submission/r2_qa/qa_overlay.html,keep_with_reason,1.0.0,edge_zone=false nhưng tâm box có r/R=0.605; sau P4 xác nhận cần đổi thành edge_zone=true

@@ -1,0 +1,9 @@
+round: r1_craft
+slice: B4-edge
+sha256: 5b46395baa5c066d59b4233179ac93c0e19acf6a8c5c7503419d58c7c6e69612
+code: 5B46-395B
+locked_at: 2026-09-28T17:48:22+07:00
+shapes: box=17, polygon=11
+prefill_kept: 4
+prefill_edited: 0
+new: 13

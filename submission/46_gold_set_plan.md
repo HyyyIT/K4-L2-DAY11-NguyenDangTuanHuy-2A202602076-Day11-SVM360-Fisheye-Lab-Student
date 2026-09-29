@@ -2,17 +2,17 @@
 
 **Đầu bài:** 50.000 frame từ bốn camera SVM, ngân sách chọn 200 frame để review/gold. Đây là tình huống trên slide,
 **không phải** 50.000 frame có trong repo. Phân bổ đúng 200 ở `45_sampling_plan.csv` cho bốn camera, mỗi camera có
-normal và hard slice. “Gold set” ở đây là **kế hoạch tạo** reference sau kiểm chứng, không phải teaching reference
+normal và hard slice. "Gold set" ở đây là **kế hoạch tạo** reference sau kiểm chứng, không phải teaching reference
 ADASIND hoặc nhãn bạn vừa vẽ. Nếu cần, dùng `notebooks/day11-svm360-colab.ipynb` để thử tổng phân bổ; notebook
 không làm thay phần lý do.
 
 | camera_id | Hard case cần chọn | Vì sao dễ sai | Annotation space / calibration cần giữ | Cách review trước khi gọi là gold |
 |---|---|---|---|---|
-| front | TODO | TODO | TODO | TODO |
-| rear | TODO | TODO | TODO | TODO |
-| left | TODO | TODO | TODO | TODO |
-| right | TODO | TODO | TODO | TODO |
+| front | Giao lộ phức tạp, người dắt xe máy (rider split), vật bị che khuất >50%, điều kiện backlight | Vùng center fisheye biến dạng ít nhất nhưng mật độ vật cao; R03 rider case dễ gán sai; occluded vật dễ bỏ sót | Giữ camera matrix, distortion coefficients, và ignore_region boundary cho vùng ego_body | Hai reviewer độc lập cùng gán nhãn; tính inter-rater agreement (IoU ≥ 0.70); Lab Coach duyệt cuối |
+| rear | Xe tải/buýt lớn che khuất, vật tiếp cận tốc độ cao, đêm với đèn pha ngược chiều | Vật tiến từ xa nhanh chóng thay đổi kích thước; edge_zone thay đổi nhanh theo r/R | Giữ calibration fisheye rear với góc FOV và distortion riêng; chú ý khoảng cách ignore nhỏ hơn | Reviewer xem video sequence ±3 frame để kiểm tính liên tục của track trước khi gọi là gold |
+| left | Vật ở vùng seam front-left, xe máy/xe đạp sát lề, người đứng trên vỉa hè bị cắt truncated | Vùng seam giữa hai camera tạo ambiguity — vật có thể thuộc front hay left; truncated box khó xác định boundary | Giữ extrinsic calibration giữa camera left và front để biết vùng overlap chính xác | Kiểm cross-camera: cùng vật có box tương ứng trên front không? Nếu có, áp dụng seam policy |
+| right | Vùng seam front-right, xe máy đan xen gần sát ego, điều kiện ngược sáng chiều tối | Camera right ở Việt Nam/Ấn Độ thường đối mặt với mật độ xe máy cao nhất; seam với front tương tự left | Giữ calibration tương tự left; chú ý vùng ego_body bên phải có thể rộng hơn | Peer review với reviewer camera front để xác nhận seam case; không gọi là gold nếu cross-camera chưa nhất quán |
 
-- Khi nào cần refresh gold set (đổi camera, calibration hoặc rule): TODO
-- Một ca seam/cross-camera cần policy và evidence trước khi ghép hai box: TODO
-- Vì sao peer agreement hoặc quality report trên ảnh một camera chưa chứng minh gold set đúng cho cả bốn camera: TODO
+- Khi nào cần refresh gold set (đổi camera, calibration hoặc rule): Refresh khi (1) thay camera hardware hoặc re-calibration làm thay đổi distortion coefficients >5%; (2) rules_version thay đổi ảnh hưởng đến class boundary hoặc edge_zone threshold; (3) distribution shift: môi trường deploy mới (thành phố khác, điều kiện thời tiết mới) có hard case chưa được đại diện trong gold set hiện tại.
+- Một ca seam/cross-camera cần policy và evidence trước khi ghép hai box: Khi cùng một vật xuất hiện ở hai camera (front và left), cần có: (1) extrinsic calibration matrix để project tọa độ 3D sang 2D mỗi camera; (2) IoU ≥ 0.30 giữa hai box sau projection; (3) reviewer xem frame ±2 để xác nhận đây là cùng vật; (4) ghi rõ policy: box nào là "chủ" (camera nào gần hơn), box nào là bản sao để tránh double-count. Chưa có ba bằng chứng trên thì không ghép.
+- Vì sao peer agreement hoặc quality report trên ảnh một camera chưa chứng minh gold set đúng cho cả bốn camera: Mỗi camera fisheye có distortion profile khác nhau — vùng edge của camera front không tương đương vùng edge của camera rear về mặt pixel density và vật thể điển hình. Agreement cao trên front không đảm bảo annotator hiểu đúng calibration của rear hay kinh nghiệm với seam case left/right. Gold set cần được validate trên từng camera riêng biệt với hard case đại diện cho profile méo và distribution vật thể của camera đó.

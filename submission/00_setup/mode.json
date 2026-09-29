@@ -1,0 +1,24 @@
+{
+  "members": [
+    "KimNguyenKhoi",
+    "NguyenDangTuanHuy",
+    "NguyenTuanKhoi"
+  ],
+  "assignments": {
+    "KimNguyenKhoi": "B1-edge",
+    "NguyenDangTuanHuy": "B4-edge",
+    "NguyenTuanKhoi": "B3-center"
+  },
+  "self": "NguyenDangTuanHuy",
+  "slice": "B4-edge",
+  "degrade": [],
+  "current_slice": "B4-edge",
+  "support_prefill": false,
+  "support_slice": "",
+  "prefill_box_ids": [
+    "adasind_236370.jpg:1",
+    "adasind_236370.jpg:2",
+    "adasind_236370.jpg:3",
+    "adasind_236370.jpg:4"
+  ]
+}

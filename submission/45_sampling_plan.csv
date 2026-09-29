@@ -1,9 +1,9 @@
 camera_id,slice_type,frames,risk,rationale
-front,normal,,TODO,TODO
-front,hard,,TODO,TODO
-rear,normal,,TODO,TODO
-rear,hard,,TODO,TODO
-left,normal,,TODO,TODO
-left,hard,,TODO,TODO
-right,normal,,TODO,TODO
-right,hard,,TODO,TODO
+front,normal,35,medium,"Camera trước có tầm nhìn rộng nhất, vật thể đa dạng (xe, người đi bộ, xe máy) trên đường thẳng hoặc giao lộ. Cần đủ mẫu để đánh giá độ phủ class chính."
+front,hard,25,high,"Giao lộ phức tạp, vật bị che khuất (occluded) bởi xe khác, điều kiện sáng ngược (backlight), người dắt xe máy (rider split case), mưa/sương mờ."
+rear,normal,25,medium,"Camera sau có ít tình huống phức tạp hơn front nhưng cần đảm bảo phát hiện xe đang tiến lại gần từ phía sau. Tốc độ tương đối cao."
+rear,hard,20,high,"Xe tải/xe buýt lớn che khuất hoàn toàn; vật nhỏ (xe đạp, người) xuất hiện sát cạnh ego; điều kiện đêm hoặc đèn pha chiếu thẳng."
+left,normal,20,medium,"Camera trái chủ yếu quan sát làn đường bên trái, lề đường và người đi bộ. Mẫu normal giúp xác nhận class và attribute cơ bản."
+left,hard,20,high,"Vùng seam với camera front/rear (vật ở góc xe có thể xuất hiện 2 camera); vật bị cắt bởi vòng kính (truncated mạnh); lề đường đông người."
+right,normal,20,medium,"Camera phải tương tự trái, cần mẫu đại diện đường phố bên phải, vỉa hè, xe đỗ bên lề."
+right,hard,35,high,"Vùng seam với front/rear; xe máy/xe đạp đan xen gần sát xe ego; điều kiện ngược sáng chiều tối. Camera phải thường gặp nhiều xe máy hơn ở môi trường Ấn Độ/Việt Nam."
